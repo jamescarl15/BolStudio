@@ -5,9 +5,72 @@
         v1.0 - Initial Release
 				v1.1 - Add Combo - W>Q>E  
 				Add AutoIgnite If killable
+				Add AutoUpdate
 				
 				To Do: Nothing. Suggestions?
 --]]
+
+--[[		Auto Update		]]
+local sversion = "1.1"
+local AUTOUPDATE = true
+local UPDATE_HOST = "raw.github.com"
+local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarl BlitzCrank".."?rand="..math.random(1,10000)
+local UPDATE_FILE_PATH = SCRIPT_PATH.."JamesCarl Blitzcrank.lua"
+local UPDATE_URL = "https://"..UPDATE_HOST..UPDATE_PATH
+
+function AutoupdaterMsg(msg) print("<font color=\"#6699ff\"><b>JamesCarl BlitzCrank:</b></font> <font color=\"#FFFFFF\">"..msg..".</font>") end
+if AUTOUPDATE then
+	local ServerData = GetWebResult(UPDATE_HOST, "/jamescarl15/BolStudio/master/version/JamesCarlBlitzCrank.version")
+	if ServerData then
+		ServerVersion = type(tonumber(ServerData)) == "number" and tonumber(ServerData) or nil
+		if ServerVersion then
+			if tonumber(sversion) < ServerVersion then
+				AutoupdaterMsg("New version available"..ServerVersion)
+				AutoupdaterMsg("Updating, please don't press F9")
+				DelayAction(function() DownloadFile(UPDATE_URL, UPDATE_FILE_PATH, function () AutoupdaterMsg("Successfully updated. ("..sversion.." => "..ServerVersion.."), press F9 twice to load the updated version.") end) end, 3)
+			else
+				AutoupdaterMsg("You have got the latest version ("..ServerVersion..")")
+			end
+		end
+	else
+		AutoupdaterMsg("Error downloading version info")
+	end
+end
+
+local REQUIRED_LIBS = 
+	{
+		["VPrediction"] = "https://raw.github.com/Hellsing/BoL/master/common/VPrediction.lua",
+		["SOW"] = "https://raw.github.com/Hellsing/BoL/master/common/SOW.lua",
+	}		
+local DOWNLOADING_LIBS = false
+local DOWNLOAD_COUNT = 0
+local SELF_NAME = GetCurrentEnv() and GetCurrentEnv().FILE_NAME or ""
+
+for DOWNLOAD_LIB_NAME, DOWNLOAD_LIB_URL in pairs(REQUIRED_LIBS) do
+	if FileExist(LIB_PATH .. DOWNLOAD_LIB_NAME .. ".lua") then
+		require(DOWNLOAD_LIB_NAME)
+	else
+		DOWNLOADING_LIBS = true
+		DOWNLOAD_COUNT = DOWNLOAD_COUNT + 1
+
+		print("<font color=\"#00FF00\">JamesCarl BlitzCrank:</font><font color=\"#FFDFBF\"> Not all required libraries are installed. Downloading: <b><u><font color=\"#73B9FF\">"..DOWNLOAD_LIB_NAME.."</font></u></b> now! Please don't press [F9]!</font>")
+		print("Download started")
+		DownloadFile(DOWNLOAD_LIB_URL, LIB_PATH .. DOWNLOAD_LIB_NAME..".lua", AfterDownload)
+		print("Download finished")
+	end
+end
+
+function AfterDownload()
+	DOWNLOAD_COUNT = DOWNLOAD_COUNT - 1
+	if DOWNLOAD_COUNT == 0 then
+		DOWNLOADING_LIBS = false
+		print("<font color=\"#00FF00\">JamesCarl BlitzCrank:</font><font color=\"#FFDFBF\"> Required libraries downloaded successfully, please reload (double [F9]).</font>")
+	end
+end
+if DOWNLOADING_LIBS then return end
+
+--- script ---
+
 if myHero.charName ~= "Blitzcrank" then return end
      
 require 'VPrediction'

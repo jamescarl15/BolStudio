@@ -119,7 +119,7 @@ function OnLoad()
 		if myHero:GetSpellData(SUMMONER_1).name:find("SummonerDot") then ignite = SUMMONER_1
     elseif myHero:GetSpellData(SUMMONER_2).name:find("SummonerDot") then ignite = SUMMONER_2 end
 				
-		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank v1.1 With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
+		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank v1.2 With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
 local qrange, qwidth, qspeed, qdelay = 1050, 120, 1800, .25	

@@ -101,6 +101,8 @@ function OnLoad()
 		Menu:addSubMenu("["..myHero.charName.." - BlitzGrab]", "BlitzGrab")
 		Menu.BlitzGrab:addParam("UseQ", "Use RocketGrab", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("X"))
 		
+		Menu:addParam("Version", "Version", SCRIPT_PARAM_INFO, sversion)
+		
 		Menu:addSubMenu("["..myHero.charName.." - UltiOption]", "UltiOption")
 		Menu.UltiOption:addParam("KsR", "Killsteal on Ulti", SCRIPT_PARAM_ONOFF, true)
 		Menu.UltiOption:addParam("SilenceR", "Use R to Silence Enemies", SCRIPT_PARAM_ONOFF, true)

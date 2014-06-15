@@ -9,12 +9,13 @@
 				
 				v1.2 - Add AutoUpdate
 				v1.3 - Fix Bugs
+				v1.4 - Fix Ranges
 				To Do: Nothing. Suggestions?
 --]]
 
 --[[		Auto Update		]]
-local sversion = "1.3"
-local AUTOUPDATE = true --You can set this false if you didn't want to autoupdate --
+local sversion = "1.4"
+local AUTOUPDATE = false --You can set this false if you didn't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarl BlitzCrank".."?rand="..math.random(1,10000)
 local UPDATE_FILE_PATH = SCRIPT_PATH.."JamesCarl Blitzcrank.lua"
@@ -119,12 +120,12 @@ function OnLoad()
 		if myHero:GetSpellData(SUMMONER_1).name:find("SummonerDot") then ignite = SUMMONER_1
     elseif myHero:GetSpellData(SUMMONER_2).name:find("SummonerDot") then ignite = SUMMONER_2 end
 				
-		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank v1.3 With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
+		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank v1.4 With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
-local qrange, qwidth, qspeed, qdelay = 1050, 120, 1800, .25	
+local qrange, qwidth, qspeed, qdelay = 1000, 120, 1800, .25	
 local rrange = 590
-local aarange = 175
+local aarange = 200
 local abilitySequence = {1,3,2,1,1,4,1,3,1,2,4,3,3,2,2,4,3,2}
 
 function OnTick()
@@ -141,7 +142,7 @@ end
 
 function UseQ()
 	if ts.target ~= nil and ValidTarget(ts.target, qrange) and Menu.BlitzGrab.UseQ then
-		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, .25, 120, 1050, 1800, myHero, true)
+		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, qrange, qwidth, qspeed, qdelay, myHero, true)
 		if HitChance >= 2  and GetDistance(ts.target) <= qrange and myHero:CanUseSpell(_Q) == READY then 
 			CastSpell(_Q, CastPosition.x, CastPosition.z)
 end
@@ -168,7 +169,7 @@ end
 
 function Combo()
 	if ts.target ~= nil and ValidTarget(ts.target, qrange) and Menu.BlitzCombo.Combo then
-		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, .25, 120, 1050, 1800, myHero, true)
+		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, qrange, qwidth, qspeed, qdelay, myHero, true)
 		if HitChance >= 2  and GetDistance(ts.target) <= qrange and myHero:CanUseSpell(_Q) == READY then 
 			CastSpell(_Q, CastPosition.x, CastPosition.z)
 		end

@@ -16,7 +16,7 @@
 --]]
 
 --[[		Auto Update		]]
-local sversion = "1.5"
+local sversion = "1.5.1"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlBlitzCrank.lua".."?rand="..math.random(1,10000)

@@ -12,7 +12,8 @@
 				v1.4 - 	Fix Ranges
 				v1.5 -  Add Option to use in Combo
 					Add Level Sequence QWER and QEWR
-					Use Items in Combo			
+					Use Items in Combo
+				v1.5.1 - Fix Little Bugs
 --]]
 
 --[[		Auto Update		]]

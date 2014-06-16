@@ -11,10 +11,8 @@
 				v1.3 - 	Fix Bugs
 				v1.4 - 	Fix Ranges
 				v1.5 -  Add Option to use in Combo
-								Add Level Sequence QWER and QEWR
-								
-				To Do: 	Add Selected Target
-								Add Grab Lantern (for Duo Friend.. for fun
+					Add Level Sequence QWER and QEWR
+					Use Items in Combo			
 --]]
 
 --[[		Auto Update		]]

@@ -2,15 +2,17 @@
  
         Free BlitzCrank With VPrediction by JamesCarl
        
-        			v1.0 - Initial Release
+        			v1.0 - 	Initial Release
         			
-				v1.1 - Add Combo - W>Q>E  
-				Add AutoIgnite If killable
+				v1.1 - 	Add Combo - W>Q>E  
+					Add AutoIgnite If killable
 				
-				v1.2 - Add AutoUpdate
-				v1.3 - Fix Bugs
-				v1.4 - Fix Ranges
-				To Do: Nothing. Suggestions?
+				v1.2 - 	Add AutoUpdate
+				v1.3 - 	Fix Bugs
+				v1.4 - 	Fix Ranges
+				To Do: 	Add Selected Target
+					Add Option to use in Combo
+					Add Grab Lantern (for Duo Friend.. for fun
 --]]
 
 --[[		Auto Update		]]

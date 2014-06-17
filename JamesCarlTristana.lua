@@ -1,3 +1,10 @@
+--[[
+ 
+        Free Tristana With SOW by JamesCarl
+       
+        			v0.1 - 	Initial Release
+        			
+		
 --[[		Auto Update		]]
 local sversion = "0.1"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --

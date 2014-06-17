@@ -10,7 +10,7 @@ local sversion = "0.1"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlTristana.lua".."?rand="..math.random(1,10000)
-local UPDATE_FILE_PATH = SCRIPT_PATH.."JamesCarlBlitzcrank.lua"
+local UPDATE_FILE_PATH = SCRIPT_PATH.."JamesCarlTristana.lua"
 local UPDATE_URL = "https://"..UPDATE_HOST..UPDATE_PATH
 
 function AutoupdaterMsg(msg) print("<font color=\"#6699ff\"><b>JamesCarl Tristana:</b></font> <font color=\"#FFFFFF\">"..msg..".</font>") end

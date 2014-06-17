@@ -2,11 +2,12 @@
  
         Free Tristana With SOW by JamesCarl
        
-        			v0.1 - 	Initial Release   ]]--
+        			v0.1 - 	Initial Release
+							v0.2 - 	Fix Fix Fix]]--
         			
 		
 --[[		Auto Update		]]
-local sversion = "0.1"
+local sversion = "0.2"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlTristana.lua".."?rand="..math.random(1,10000)
@@ -152,7 +153,7 @@ function OnTick()
 				autoLevelSetSequence(levelSequence.QW)
     end
 		
-		if Menu.Ulti.KsR then KillSteal() end
+		if Menu.Ulti.Ksr then KillSteal() end
 		if Menu.Ulti.Silence then Silence() end
 	  if Menu.activeCombo then activeCombo() end
 end
@@ -163,17 +164,22 @@ function Silence()
                 or spell.name=="AbsoluteZero" or spell.name=="ShenStandUnited" or spell.name=="UrgotSwap2" or spell.name=="AlZaharNetherGrasp"
                 or spell.name=="FallenOne" or spell.name=="Pantheon_GrandSkyfall_Jump" or spell.name=="CaitlynAceintheHole"
                 or spell.name=="MissFortuneBulletTime" or spell.name=="InfiniteDuress" or spell.name=="Teleport" or spell.name=="Meditate" then
-                        CastSpell(_R, unit)
+                        CastSpell(_R, ts.target)
 end
 end
 end
 
 function KillSteal()
-		   if Menu.Ulti.KsR and ts.target and RREADY then
-          if RREADY and GetDistance(ts.target) < rrange and getDmg("R",ts.target,myHero) > ts.target.health then CastSpell(_R,ts.target) end
-end  
-end
-
+      if Menu.Ulti.Ksr and RREADY then
+                for i = 1, heroManager.iCount, 1 do
+                        local Target = heroManager:getHero(i)
+                        local rDamage = getDmg("R",ts.target,myHero)
+                        if ValidTarget(Target, rrange) and Target.health < rDamage then
+                                CastSpell(_R, ts.target)
+                        end
+                end
+        end
+				end
 
 function activeCombo()
 	if ValidTarget(Target) then if Menu.Combo.useitems then UseItems(Target) end

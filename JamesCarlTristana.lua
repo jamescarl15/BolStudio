@@ -2,7 +2,7 @@
  
         Free Tristana With SOW by JamesCarl
        
-        			v0.1 - 	Initial Release
+        			v0.1 - 	Initial Release   ]]--
         			
 		
 --[[		Auto Update		]]
@@ -336,4 +336,3 @@ end
 
 		
 		
-

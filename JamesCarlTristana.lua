@@ -119,7 +119,7 @@ function OnLoad()
 		
 	Menu:addSubMenu("["..myHero.charName.." - Drawings]", "drawings")
 		Menu.drawings:addParam("DCircleAA", "DrawCircle Attack Range", SCRIPT_PARAM_ONOFF, true)
-		Menu.drawings:addParam("DCircleW", "DrawCircle W Range", SCRIPT_PARAM_ONOFF, true)
+		Menu.drawings:addParam("DCircleE", "DrawCircle E Range", SCRIPT_PARAM_ONOFF, true)
 		Menu.drawings:addParam("DCircleR", "DrawCircle R Range", SCRIPT_PARAM_ONOFF, true)
 		
 	Menu:addSubMenu("["..myHero.charName.." - Others]", "Others")
@@ -330,7 +330,7 @@ end
 
 function OnDraw()
 	if Menu.drawings.DCircleAA then DrawCircle(myHero.x, myHero.y, myHero.z, aarange, 0x111111) end
-	if Menu.drawings.DCircleW then DrawCircle(myHero.x, myHero.y, myHero.z, wrange, 0x111111) end
+	if Menu.drawings.DCircleE then DrawCircle(myHero.x, myHero.y, myHero.z, erange, 0x111111) end
 	if Menu.drawings.DCircleR then DrawCircle(myHero.x, myHero.y, myHero.z, rrange, 0x111111) end
 end
 

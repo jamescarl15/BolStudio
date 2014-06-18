@@ -3,11 +3,12 @@
         Free Tristana With SOW by JamesCarl
        
         			v0.1 - 	Initial Release
-							v0.2 - 	Fix Fix Fix]]--
+							v0.2 - 	Fix Fix Fix
+							v0.2.1 - Fix Ks]]--
         			
 		
 --[[		Auto Update		]]
-local sversion = "0.2"
+local sversion = "0.3"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlTristana.lua".."?rand="..math.random(1,10000)
@@ -122,17 +123,19 @@ function OnLoad()
 		Menu.drawings:addParam("DCircleAA", "DrawCircle Attack Range", SCRIPT_PARAM_ONOFF, true)
 		Menu.drawings:addParam("DCircleE", "DrawCircle E Range", SCRIPT_PARAM_ONOFF, true)
 		Menu.drawings:addParam("DCircleR", "DrawCircle R Range", SCRIPT_PARAM_ONOFF, true)
+		Menu.drawings:addParam("DCircleW", "DrawCircle W Range", SCRIPT_PARAM_ONOFF, true)
 		
 	Menu:addSubMenu("["..myHero.charName.." - Others]", "Others")
 		Menu.Others:addParam("Autolevel", "Auto Level", SCRIPT_PARAM_LIST, 1, {"Disable", "W>E>Q>R", "E>W>Q>R", "Q>W>E>R",})
-		
+			
 	Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
 	
 	PrintChat("<font color = \"#33CCCC\">Tristana by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
-local aarange, erange, rrange, irange = 590, 600, 645, 600
-qReady, eReady, rReady = false, false, false, false
+local aarange, erange, rrange, irange, wrange = 590, 600, 645, 600, 900
+qReady, wReady, eReady, rReady = false, false, false, false, false
+
 levelSequence = {
         WE = {2,3,1,2,2,4,2,3,2,3,4,3,3,1,1,4,1,1},
         EW = {3,2,1,3,3,4,3,2,3,2,4,2,2,1,1,4,1,1},
@@ -170,16 +173,16 @@ end
 end
 
 function KillSteal()
-      if Menu.Ulti.Ksr and RREADY then
+        if  Menu.Ulti.Ksr and RREADY then
                 for i = 1, heroManager.iCount, 1 do
                         local Target = heroManager:getHero(i)
-                        local rDamage = getDmg("R",ts.target,myHero)
+                        local rDamage = getDmg("R",Target,myHero)
                         if ValidTarget(Target, rrange) and Target.health < rDamage then
-                                CastSpell(_R, ts.target)
+                                CastSpell(_R, Target)
                         end
                 end
         end
-				end
+			end
 
 function activeCombo()
 	if ValidTarget(Target) then if Menu.Combo.useitems then UseItems(Target) end
@@ -338,6 +341,7 @@ function OnDraw()
 	if Menu.drawings.DCircleAA then DrawCircle(myHero.x, myHero.y, myHero.z, aarange, 0x111111) end
 	if Menu.drawings.DCircleE then DrawCircle(myHero.x, myHero.y, myHero.z, erange, 0x111111) end
 	if Menu.drawings.DCircleR then DrawCircle(myHero.x, myHero.y, myHero.z, rrange, 0x111111) end
+	if Menu.drawings.DCricleW then DrawCircle(myHero.x, myHero.y, myHero.z, wrange, 0x111111) end
 end
 
 		

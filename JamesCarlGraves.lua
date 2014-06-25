@@ -118,10 +118,6 @@ function OnLoad()
 		
 	Menu:addParam("Version", "Version", SCRIPT_PARAM_INFO, sversion)
 
-	Menu:addSubMenu("["..myHero.charName.." - KillSteal]", "Ks")
-		Menu.Ks:addParam("Ksr", "KillSteal on Ultimate", SCRIPT_PARAM_ONOFF, true)
-		Menu.Ks:addParam("Ksq", "KillSteal on Q - BuckShot", SCRIPT_PARAM_ONOFF, true)	
-			
 	Menu:addSubMenu("["..myHero.charName.." - Drawings]", "drawings")
 		Menu.drawings:addParam("DCircleAA", "DrawCircle Attack Range", SCRIPT_PARAM_ONOFF, true)
 		Menu.drawings:addParam("DCircleQ", "DrawCircle Q Range", SCRIPT_PARAM_ONOFF, true)
@@ -134,7 +130,7 @@ function OnLoad()
 		
 	Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
 
-	PrintChat("<font color = \"#33CCCC\">Graves by</font> <font color = \"#fff8e7\">JamesCarl</font>")
+	PrintChat("<font color = \"#33CCCC\">Graves"..sversion.." by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
 function OnTick()
@@ -147,8 +143,6 @@ function OnTick()
     elseif Menu.Others.Autolevel == 3 then
     autoLevelSetSequence(levelSequence.EQ) end
 		
-		if Menu.Ks.Ksr then KillStealR() end
-		if Menu.Ks.Ksq then KillStealQ() end
 		if Menu.activeCombo then activeCombo() end
 end
 

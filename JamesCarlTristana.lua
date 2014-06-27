@@ -134,7 +134,7 @@ function OnLoad()
 			
 	Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
 	
-	PrintChat("<font color = \"#33CCCC\">Tristana by</font> <font color = \"#fff8e7\">JamesCarl</font>")
+	PrintChat("<font color = \"#33CCCC\">Tristana "..sversion.." by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
 local aarange, erange, rrange, irange, wrange = 590, 600, 645, 600, 900

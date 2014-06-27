@@ -3,11 +3,12 @@
         Free Graves With SOW and VPredicton by JamesCarl
        
         			v0.1 - 	Initial Release
-				This is an WIP project.. so don't inspect toomuch.. :)
+							v0.2 - 	Add: Harass
+				
 							]]--
 
 --Auto Update--
-local sversion = "0.1"
+local sversion = "0.2"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlGraves.lua".."?rand="..math.random(1,10000)
@@ -116,6 +117,10 @@ function OnLoad()
 		Menu.Combo:addParam("useitems", "Use Items", SCRIPT_PARAM_ONOFF, true)
 		Menu.Combo:addParam("ignite", "Use Ignite if Killable", SCRIPT_PARAM_ONOFF, true)
 		
+	Menu:addSubMenu("["..myHero.charName.." - Harass Settings]", "Harass")
+		Menu.Harass:addParam("useQH", "Use Q in Harass", SCRIPT_PARAM_ONOFF, true)
+		Menu.Harass:addParam("useWH", "Use W in Harass", SCRIPT_PARAM_ONOFF, true)
+		
 	Menu:addParam("Version", "Version", SCRIPT_PARAM_INFO, sversion)
 
 	Menu:addSubMenu("["..myHero.charName.." - Drawings]", "drawings")
@@ -129,8 +134,9 @@ function OnLoad()
 		Menu.Others:addParam("Autolevel", "Auto Level", SCRIPT_PARAM_LIST, 1, {"Disable", "Q>W>E>R", "E>Q>W>R"})
 		
 	Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
+	Menu:addParam("activeHarass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("X"))
 
-	PrintChat("<font color = \"#33CCCC\">Graves"..sversion.." by</font> <font color = \"#fff8e7\">JamesCarl</font>")
+	PrintChat("<font color = \"#33CCCC\">Graves "..sversion.." by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
 function OnTick()
@@ -141,10 +147,46 @@ function OnTick()
 		if Menu.Others.Autolevel == 2 then
     autoLevelSetSequence(levelSequence.QE)
     elseif Menu.Others.Autolevel == 3 then
-    autoLevelSetSequence(levelSequence.EQ) end
-		
+    autoLevelSetSequence(levelSequence.EQ) end	
 		if Menu.activeCombo then activeCombo() end
+		if Menu.activeHarass then activeHarass() end
 end
+
+function activeHarass() 
+	if ValidTarget(Target) then
+	if Menu.Harass.useQH then UseQH() end
+	if Menu.Harass.useWH then UseWH() end
+end
+end
+
+function activeCombo()
+	if ValidTarget(Target) then if Menu.Combo.useitems then UseItems(Target) end
+	if Menu.Combo.ignite then UseIgnite(Target) end
+	if Menu.Combo.useQ then UseQ() end
+	if Menu.Combo.useW then UseW() end
+	if Menu.Combo.useE then UseE() end
+	if Menu.Combo.useR then UseR() end
+end
+end
+
+function UseQH()
+ 	if ts.target ~= nil and ValidTarget(ts.target, qrange) and Menu.Harass.useQH then
+		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, qrange, qwidth, qspeed, qdelay, myHero, true)
+		if GetDistance(ts.target) <= qrange and myHero:CanUseSpell(_Q) == READY then 
+			CastSpell(_Q, CastPosition.x, CastPosition.z)
+		end
+end
+end
+
+function UseWH()
+ 	if ts.target ~= nil and ValidTarget(ts.target, wrange) and Menu.Harass.useWH then
+		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, wrange, wwidth, wspeed, wdelay, myHero, true)
+		if GetDistance(ts.target) <= wrange and myHero:CanUseSpell(_W) == READY then 
+			CastSpell(_W, CastPosition.x, CastPosition.z)
+		end
+end
+end
+
 
 function OnDraw()
         --> Ranges
@@ -165,16 +207,6 @@ function OnDraw()
 												DrawCircle(myHero.x, myHero.y, myHero.z, aarange, 0x00FF00) end
 								
         end
-end
-
-function activeCombo()
-	if ValidTarget(Target) then if Menu.Combo.useitems then UseItems(Target) end
-	if Menu.Combo.ignite then UseIgnite(Target) end
-	if Menu.Combo.useQ then UseQ() end
-	if Menu.Combo.useW then UseW() end
-	if Menu.Combo.useE then UseE() end
-	if Menu.Combo.useR then UseR() end
-end
 end
 
 function UseQ()
@@ -210,6 +242,7 @@ function UseR()
 		end
 end
 end
+
 
 function OnCreateObj(obj)
     if obj ~= nil then

@@ -4,7 +4,8 @@
        
         			v0.1 - 	Initial Release
 							v0.2 - 	Fix Fix Fix
-							v0.2.1 - Fix Ks]]--
+							v0.3 - Fix Ks
+							v0.4 - Add UpdateRange E]]--
         			
 		
 --[[		Auto Update		]]
@@ -125,6 +126,9 @@ function OnLoad()
 		Menu.drawings:addParam("DCircleR", "DrawCircle R Range", SCRIPT_PARAM_ONOFF, true)
 		Menu.drawings:addParam("DCircleW", "DrawCircle W Range", SCRIPT_PARAM_ONOFF, true)
 		
+	Menu:addSubMenu("["..myHero.charName.." - Escape]", "Esp")
+		Menu.Esp:addParam("Esp", "W on Mouse Pos.", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("G"))
+		
 	Menu:addSubMenu("["..myHero.charName.." - Others]", "Others")
 		Menu.Others:addParam("Autolevel", "Auto Level", SCRIPT_PARAM_LIST, 1, {"Disable", "W>E>Q>R", "E>W>Q>R", "Q>W>E>R",})
 			
@@ -148,6 +152,7 @@ function OnTick()
     Target = GetOthersTarget()
     NSOW:ForceTarget(Target)
     Checks()
+		UpdateRange()
 		if Menu.Others.Autolevel == 2 then
         autoLevelSetSequence(levelSequence.WE)
     elseif Menu.Others.Autolevel == 3 then
@@ -155,10 +160,22 @@ function OnTick()
 		elseif Menu.Others.AutoLevel == 4 then
 				autoLevelSetSequence(levelSequence.QW)
     end
-		
 		if Menu.Ulti.Ksr then KillSteal() end
 		if Menu.Ulti.Silence then Silence() end
 	  if Menu.activeCombo then activeCombo() end
+		if Menu.Esp.Esp then Escape() end
+end
+
+function UpdateRange()
+	erange = (((myHero.level * 9) - 9) + 600)
+end 
+
+--thanks hex--
+function Escape()
+        --local dashSqr = math.sqrt((mousePos.x - myHero.x)^2+(mousePos.z - myHero.z)^2)
+        --local dashX = myHero.x + wrange*((mousePos.x - myHero.x)/dashSqr)
+        --local dashZ = myHero.z + wrange*((mousePos.z - myHero.z)/dashSqr)
+        CastSpell(_W, mousePos.x, mousePos.z)  
 end
 
 function Silence()
@@ -171,18 +188,6 @@ function Silence()
 end
 end
 end
-
-function KillSteal()
-        if  Menu.Ulti.Ksr and RREADY then
-                for i = 1, heroManager.iCount, 1 do
-                        local Target = heroManager:getHero(i)
-                        local rDamage = getDmg("R",Target,myHero)
-                        if ValidTarget(Target, rrange) and Target.health < rDamage then
-                                CastSpell(_R, Target)
-                        end
-                end
-        end
-			end
 
 function activeCombo()
 	if ValidTarget(Target) then if Menu.Combo.useitems then UseItems(Target) end
@@ -232,6 +237,18 @@ if obj ~= nil then
         
     end
 end
+
+function KillSteal()
+        if  Menu.Ulti.Ksr and RREADY then
+                for i = 1, heroManager.iCount, 1 do
+                        local Target = heroManager:getHero(i)
+                        local rDamage = getDmg("R",Target,myHero)
+                        if ValidTarget(Target, rrange) and Target.health < rDamage then
+                                CastSpell(_R, Target)
+                        end
+                end
+        end
+			end
 
 -- isFacing by Feez--
 function isFacing(source, ourtarget, lineLength)
@@ -342,7 +359,8 @@ function OnDraw()
 	if Menu.drawings.DCircleE then DrawCircle(myHero.x, myHero.y, myHero.z, erange, 0x111111) end
 	if Menu.drawings.DCircleR then DrawCircle(myHero.x, myHero.y, myHero.z, rrange, 0x111111) end
 	if Menu.drawings.DCricleW then DrawCircle(myHero.x, myHero.y, myHero.z, wrange, 0x111111) end
-end
-
+	end
+		
+		
 		
 		

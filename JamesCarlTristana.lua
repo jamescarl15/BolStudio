@@ -5,7 +5,7 @@
         			v0.1 - 	Initial Release
 							v0.2 - 	Fix Fix Fix
 							v0.3 - Fix Ks
-							v0.4 - Add UpdateRange E]]--
+							v0.4 - Add UpdateRange E and Escape Key]]--
         			
 		
 --[[		Auto Update		]]

@@ -5,11 +5,13 @@
         			v0.1 - 	Initial Release
 							v0.2 - 	Fix Fix Fix
 							v0.3 - Fix Ks
-							v0.4 - Add UpdateRange E and Escape Key]]--
+							v0.4 - Add UpdateRange E and Escape Key
+							v0.5 - Add Harass
+							]]--
         			
 		
 --[[		Auto Update		]]
-local sversion = "0.4"
+local sversion = "0.5"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlTristana.lua".."?rand="..math.random(1,10000)
@@ -113,6 +115,9 @@ function OnLoad()
 		Menu.Combo:addParam("useR", "Use R in Combo", SCRIPT_PARAM_ONOFF, true)
 		Menu.Combo:addParam("useitems", "Use Items", SCRIPT_PARAM_ONOFF, true)
 		Menu.Combo:addParam("ignite", "Use Ignite if Killable", SCRIPT_PARAM_ONOFF, true)
+	
+	Menu:addSubMenu("["..myHero.charName.." - Harass Settings]", "Harass")
+		Menu.Harass:addParam("useEH", "Use E in Harass", SCRIPT_PARAM_ONOFF, true)
 		
 	Menu:addParam("Version", "Version", SCRIPT_PARAM_INFO, sversion)
 		
@@ -133,6 +138,7 @@ function OnLoad()
 		Menu.Others:addParam("Autolevel", "Auto Level", SCRIPT_PARAM_LIST, 1, {"Disable", "W>E>Q>R", "E>W>Q>R", "Q>W>E>R",})
 			
 	Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
+	Menu:addParam("activeHarass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("X"))
 	
 	PrintChat("<font color = \"#33CCCC\">Tristana "..sversion.." by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
@@ -163,8 +169,21 @@ function OnTick()
 		if Menu.Ulti.Ksr then KillSteal() end
 		if Menu.Ulti.Silence then Silence() end
 	  if Menu.activeCombo then activeCombo() end
+		if Menu.activeHarass then activeHarass() end
 		if Menu.Esp.Esp then Escape() end
 end
+
+function activeHarass() 
+	if ValidTarget(Target) then
+	if Menu.Harass.useEH then UseEH() end
+end
+end
+
+function UseEH()
+	if Menu.Harass.useEH and ts.target and EREADY then
+	if EREADY and GetDistance(ts.target) < erange then CastSpell(_E,ts.target) end
+	end
+	end
 
 function UpdateRange()
 	erange = (((myHero.level * 9) - 9) + 600)

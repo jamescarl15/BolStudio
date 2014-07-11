@@ -4,11 +4,12 @@
        
         			v0.1 - 	Initial Release
 							v0.2 - 	Add: Harass
+							v0.3 - 	Add: KillSteal
 				
 							]]--
 
 --Auto Update--
-local sversion = "0.2"
+local sversion = "0.3"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlGraves.lua".."?rand="..math.random(1,10000)
@@ -122,6 +123,11 @@ function OnLoad()
 		Menu.Harass:addParam("useWH", "Use W in Harass", SCRIPT_PARAM_ONOFF, true)
 		
 	Menu:addParam("Version", "Version", SCRIPT_PARAM_INFO, sversion)
+	
+	Menu:addSubMenu("[Graves - KillSteal Settings]", "ks")
+		Menu.ks:addParam("ksq", "Buckshot (Q)", SCRIPT_PARAM_ONOFF, true)
+		Menu.ks:addParam("ksw", "SmokeScreen (W)", SCRIPT_PARAM_ONOFF, true)
+		Menu.ks:addParam("ksr", "Collateral Damage (R)", SCRIPT_PARAM_ONOFF, true)
 
 	Menu:addSubMenu("["..myHero.charName.." - Drawings]", "drawings")
 		Menu.drawings:addParam("DCircleAA", "DrawCircle Attack Range", SCRIPT_PARAM_ONOFF, true)
@@ -144,12 +150,58 @@ function OnTick()
     Target = GetOthersTarget()
     SOW:ForceTarget(Target)
     Checks()
+		KillSteal()
 		if Menu.Others.Autolevel == 2 then
     autoLevelSetSequence(levelSequence.QE)
     elseif Menu.Others.Autolevel == 3 then
     autoLevelSetSequence(levelSequence.EQ) end	
 		if Menu.activeCombo then activeCombo() end
 		if Menu.activeHarass then activeHarass() end
+end
+
+function KillSteal()
+	if Menu.ks.ksr then ksr() end
+	if Menu.ks.ksw then ksw() end
+	if Menu.ks.ksq then ksq() end
+	end
+	
+function ksr()
+for i, enemy in ipairs(GetEnemyHeroes()) do
+		rDmg = getDmg("R", enemy, myHero)
+
+		if RREADY and enemy ~= nil and ValidTarget(enemy, rrange) and enemy.health < rDmg then
+			local rPosition, rChance = VP:GetLineCastPosition(enemy, rrange, rspeed, rdelay, rwidth, myHero, false)
+		    if rPosition ~= nil and rChance >= 2 then
+		      CastSpell(_R, rPosition.x, rPosition.z)
+		    end
+		end
+	end
+end
+
+function ksw()
+for i, enemy in ipairs(GetEnemyHeroes()) do
+	wDmg = getDmg("W", enemy, myHero)
+	
+		if WREADY and enemy ~= nil and ValidTarget(enemy, wrange) and enemy.health < wDmg then
+			local wPosition, wChance = VP:GetLineCastPosition(enemy, wrange, wspeed, wdelay, wwidth, myhero, false)
+				if wPosition ~= nil and wChance >= 2 then
+					CastSpell(_W, wPosition.x, wPosition.z)
+					end
+				end
+			end
+		end
+
+function ksq()
+for i, enemy in ipairs(GetEnemyHeroes()) do
+	qDmg = getDmg("Q", enemy, myHero)
+	
+		if QREADY and enemy ~= nil and ValidTarget(enemy, qrange) and enemy.health < qDmg then
+			local qPosition, qChance = VP:GetLineCastPosition(enemy, qrange, qspeed, qdelay, qwidth, myhero, false)
+				if qPosition ~= nil and qChance >= 2 then
+					CastSpell(_Q, qPosition.x, qPosition.z)
+					end
+				end
+			end
 end
 
 function activeHarass() 
@@ -172,7 +224,7 @@ end
 function UseQH()
  	if ts.target ~= nil and ValidTarget(ts.target, qrange) and Menu.Harass.useQH then
 		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, qrange, qwidth, qspeed, qdelay, myHero, true)
-		if GetDistance(ts.target) <= qrange and myHero:CanUseSpell(_Q) == READY then 
+		 if HitChance >= 2 and GetDistance(ts.target) <= qrange and myHero:CanUseSpell(_Q) == READY then 
 			CastSpell(_Q, CastPosition.x, CastPosition.z)
 		end
 end
@@ -181,7 +233,7 @@ end
 function UseWH()
  	if ts.target ~= nil and ValidTarget(ts.target, wrange) and Menu.Harass.useWH then
 		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, wrange, wwidth, wspeed, wdelay, myHero, true)
-		if GetDistance(ts.target) <= wrange and myHero:CanUseSpell(_W) == READY then 
+		if HitChance >= 2 and GetDistance(ts.target) <= wrange and myHero:CanUseSpell(_W) == READY then 
 			CastSpell(_W, CastPosition.x, CastPosition.z)
 		end
 end
@@ -212,7 +264,7 @@ end
 function UseQ()
  	if ts.target ~= nil and ValidTarget(ts.target, qrange) and Menu.Combo.useQ then
 		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, qrange, qwidth, qspeed, qdelay, myHero, true)
-		if GetDistance(ts.target) <= qrange and myHero:CanUseSpell(_Q) == READY then 
+		if HitChance >= 2 and GetDistance(ts.target) <= qrange and myHero:CanUseSpell(_Q) == READY then 
 			CastSpell(_Q, CastPosition.x, CastPosition.z)
 		end
 end
@@ -221,7 +273,7 @@ end
 function UseW()
  	if ts.target ~= nil and ValidTarget(ts.target, wrange) and Menu.Combo.useW then
 		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, wrange, wwidth, wspeed, wdelay, myHero, true)
-		if GetDistance(ts.target) <= wrange and myHero:CanUseSpell(_W) == READY then 
+		if HitChance >= 2 and GetDistance(ts.target) <= wrange and myHero:CanUseSpell(_W) == READY then 
 			CastSpell(_W, CastPosition.x, CastPosition.z)
 		end
 end
@@ -237,7 +289,7 @@ end
 function UseR()
  	if ts.target ~= nil and ValidTarget(ts.target, rrange) and Menu.Combo.useR then
 		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, rrange, rwidth, rspeed, rdelay, myHero, true)
-		if GetDistance(ts.target) <= rrange and myHero:CanUseSpell(_R) == READY then 
+		if HitChance >= 2 and GetDistance(ts.target) <= rrange and myHero:CanUseSpell(_R) == READY then 
 			CastSpell(_R, CastPosition.x, CastPosition.z)
 		end
 end

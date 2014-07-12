@@ -96,7 +96,7 @@ local Target = nil
 function OnLoad()
     VP = VPrediction()
             -- Target Selector
-    ts = TargetSelector(TARGET_LESS_CAST, 1000)
+    ts = TargetSelector(TARGET_LESS_CAST, 1040)
 		IgniteSlot()
     NSOW = SOW(VP)
                    
@@ -131,7 +131,7 @@ function OnLoad()
 		
 		Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
 		
-		enemyMinion = minionManager(MINION_ENEMY, 1000, myHero, MINION_SORT_HEALTH_ASC)
+		enemyMinion = minionManager(MINION_ENEMY, 1040, myHero, MINION_SORT_HEALTH_ASC)
 				
 		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank v1.5 With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end

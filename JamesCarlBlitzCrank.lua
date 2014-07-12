@@ -15,10 +15,11 @@
 					Use Items in Combo
 				v1.5.1 - Fix Little Bugs
 				v1.6 - 	Fix Predictions
+				v1.7 - Fix Silence the enemy ults
 --]]
 
 --[[		Auto Update		]]
-local sversion = "1.6"
+local sversion = "1.7"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlBlitzCrank.lua".."?rand="..math.random(1,10000)
@@ -203,7 +204,7 @@ end
 end
 
 -- sorry burn --
-function BlitzSilencer()
+function OnProcessSpell(unit, spell)
         if Menu.UltiOption.SilenceR and unit ~= nil and unit.valid and unit.team == TEAM_ENEMY and CanUseSpell(_R) == READY and GetDistance(unit) <= rrange then
                 if spell.name=="KatarinaR" or spell.name=="GalioIdolOfDurand" or spell.name=="Crowstorm" or spell.name=="DrainChannel"
                 or spell.name=="AbsoluteZero" or spell.name=="ShenStandUnited" or spell.name=="UrgotSwap2" or spell.name=="AlZaharNetherGrasp"

@@ -14,10 +14,11 @@
 					Add Level Sequence QWER and QEWR
 					Use Items in Combo
 				v1.5.1 - Fix Little Bugs
+				v1.6 - 	Fix Predictions
 --]]
 
 --[[		Auto Update		]]
-local sversion = "1.5.1"
+local sversion = "1.6"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlBlitzCrank.lua".."?rand="..math.random(1,10000)
@@ -134,7 +135,7 @@ function OnLoad()
 		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank v1.5 With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
-local qrange, qwidth, qspeed, qdelay = 1000, 120, 1800, .25	
+local qrange, qwidth, qspeed, qdelay = 1040, 70, 1820, 0.23	
 local rrange = 590
 local aarange = 200
 levelSequence = {

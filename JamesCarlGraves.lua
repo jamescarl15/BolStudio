@@ -1,5 +1,6 @@
 --[[
- 
+ For more info. visit
+ http://botoflegends.com/forum/topic/26631-sowfreeusers-vipfreescriptgraves-by-jamescarl/
         Free Graves With SOW and VPredicton by JamesCarl
        
         			v0.1 - 	Initial Release

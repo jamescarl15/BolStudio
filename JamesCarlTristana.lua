@@ -1,5 +1,6 @@
 --[[
- 
+ For more info. visit
+ http://botoflegends.com/forum/topic/25560-sowfreeusers-vipfreescripttristana-by-jamescarl/
         Free Tristana With SOW by JamesCarl
        
         			v0.1 - 	Initial Release

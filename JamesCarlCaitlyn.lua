@@ -1,3 +1,5 @@
+--Dont Try this.. i didn't yet post this script.. so dont try it.. just wait.. ^_^ --
+
 if myHero.charName ~= "Caitlyn" then return end
 
 require 'VPrediction'

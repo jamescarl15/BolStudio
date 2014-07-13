@@ -16,6 +16,7 @@
 				v1.5.1 - Fix Little Bugs
 				v1.6 - 	Fix Predictions
 				v1.7 - Fix Silence the enemy ults
+				v1.8 - Sorry... i forgot to erase.. somethin'
 --]]
 
 --[[		Auto Update		]]
@@ -155,7 +156,6 @@ function OnTick()
         autoLevelSetSequence(levelSequence.QW)
     end
 		if Menu.UltiOption.KsR then BlitzKillSteal() end
-		if Menu.UltiOption.SilenceR then BlitzSilencer() end
 	  if Menu.activeCombo then activeCombo() end
 end
 

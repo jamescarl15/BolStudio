@@ -1,5 +1,8 @@
 --[[
- For more info. http://botoflegends.com/forum/topic/25241-sowfreeusersscript-blitzcrank-by-jamescarl-v10-6142014/
+ For more info. visit
+ http://botoflegends.com/forum/topic/25241-sowfreeusersscript-blitzcrank-by-jamescarl-v10-6142014/
+       
+       
         Free BlitzCrank With VPrediction by JamesCarl
        
         			v1.0 - 	Initial Release

@@ -168,7 +168,6 @@ function OnTick()
 				autoLevelSetSequence(levelSequence.QW)
     end
 		if Menu.Ulti.Ksr then KillSteal() end
-		if Menu.Ulti.Silence then Silence() end
 	  if Menu.activeCombo then activeCombo() end
 		if Menu.activeHarass then activeHarass() end
 		if Menu.Esp.Esp then Escape() end
@@ -198,7 +197,7 @@ function Escape()
         CastSpell(_W, mousePos.x, mousePos.z)  
 end
 
-function Silence()
+function OnProcessSpell(unit, spell)
         if Menu.Ulti.Silence and unit ~= nil and unit.valid and unit.team == TEAM_ENEMY and CanUseSpell(_R) == READY and GetDistance(unit) <= rrange then
                 if spell.name=="KatarinaR" or spell.name=="GalioIdolOfDurand" or spell.name=="Crowstorm" or spell.name=="DrainChannel"
                 or spell.name=="AbsoluteZero" or spell.name=="ShenStandUnited" or spell.name=="UrgotSwap2" or spell.name=="AlZaharNetherGrasp"

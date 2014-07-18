@@ -137,7 +137,7 @@ function OnLoad()
 		
 		enemyMinion = minionManager(MINION_ENEMY, 1040, myHero, MINION_SORT_HEALTH_ASC)
 				
-		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank v1.5 With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
+		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank "..sversion.." With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
 local qrange, qwidth, qspeed, qdelay = 1040, 70, 1820, 0.23	

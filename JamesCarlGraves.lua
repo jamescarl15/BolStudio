@@ -6,11 +6,11 @@
         			v0.1 - 	Initial Release
 							v0.2 - 	Add: Harass
 							v0.3 - 	Add: KillSteal
-				
+				v0.4 - Fix all known bugs..
 							]]--
 
 --Auto Update--
-local sversion = "0.3"
+local sversion = "0.4"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlGraves.lua".."?rand="..math.random(1,10000)
@@ -104,7 +104,7 @@ function OnLoad()
 	IgniteSlot()
  SOW = SOW(VP)
                    
- Menu = scriptConfig("JamesCarl's Graves", "Graves")
+ Menu = scriptConfig("JamesCarl's Graves "..sversion.."", "Graves")
  Menu:addTS(ts)
  ts.name = "Focus"
 

@@ -8,6 +8,7 @@
 							v0.3 - Fix Ks
 							v0.4 - Add UpdateRange E and Escape Key
 							v0.5 - Add Harass
+							v0.6 - Fix all known bugs
 							]]--
         			
 		
@@ -103,7 +104,7 @@ function OnLoad()
 		IgniteSlot()
     NSOW = SOW(VP)
                    
-    Menu = scriptConfig("JamesCarl's Tristana", "Tristana")
+    Menu = scriptConfig("JamesCarl's Tristana "..sversion.."", "Tristana")
     Menu:addTS(ts)
     ts.name = "Focus"
 

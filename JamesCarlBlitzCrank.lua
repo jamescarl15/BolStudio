@@ -20,6 +20,7 @@
 				v1.6 - 	Fix Predictions
 				v1.7 - Fix Silence the enemy ults
 				v1.8 - Sorry... i forgot to erase.. somethin'
+				v1.9 - Fix all known bugs.
 --]]
 
 --[[		Auto Update		]]
@@ -104,7 +105,7 @@ function OnLoad()
 		IgniteSlot()
     NSOW = SOW(VP)
                    
-    Menu = scriptConfig("JamesCarl's BlitzCrank", "Blitzcrank")
+    Menu = scriptConfig("JamesCarl's BlitzCrank "..sversion.."", "Blitzcrank")
     Menu:addTS(ts)
     ts.name = "Focus"
 		   
@@ -140,7 +141,7 @@ function OnLoad()
 		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank "..sversion.." With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
-local qrange, qwidth, qspeed, qdelay = 1040, 70, 1820, 0.23	
+local qrange, qwidth, qspeed, qdelay = 1050, 120, 1800, .25	
 local rrange = 590
 local aarange = 200
 levelSequence = {

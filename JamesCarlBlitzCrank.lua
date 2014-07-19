@@ -175,7 +175,7 @@ end
 
 function UseQ()
  	if ts.target ~= nil and ValidTarget(ts.target, qrange) and Menu.Combo.useQ then
-		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, qrange, qwidth, qspeed, qdelay, myHero, true)
+		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, qdelay, qwidth, qrange, qspeed, myHero, true)
 		if HitChance >= 2  and GetDistance(ts.target) <= qrange and myHero:CanUseSpell(_Q) == READY then 
 			CastSpell(_Q, CastPosition.x, CastPosition.z)
 		end

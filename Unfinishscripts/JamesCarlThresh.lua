@@ -35,7 +35,7 @@ function OnLoad()
 		PrintChat("<font color = \"#33CCCC\">Thresh With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
-local qrange, qwidth, qspeed, qdelay = 1075, 180, 1800, 250
+local qrange, qwidth, qspeed, qdelay = 1075, 50, 2000, 491
 local erange = 250
 
 function OnTick()

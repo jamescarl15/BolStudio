@@ -1,5 +1,5 @@
 --[[
- For more info. visit
+ For more info. visit http://botoflegends.com/forum/topic/30053-sowfreevipusersfreescriptvladimir-by-jamescarl/
         Vladimir With SOW and VPredicton by JamesCarl
         			v0.1 - 	Initial Release
 ]]--

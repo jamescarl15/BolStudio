@@ -1,1 +1,1 @@
-Dont use this scripts.. thanks =)
+Dont use these scripts.. thanks =)

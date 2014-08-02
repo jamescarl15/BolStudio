@@ -21,10 +21,13 @@
 				v1.7 - Fix Silence the enemy ults
 				v1.8 - Sorry... i forgot to erase.. somethin'
 				v1.9 - Fix all known bugs.
+				v2.0 -	so
+				v2.1 -
+				v2.2 - Back to auto update.. REWORK!
 --]]
 
 --[[		Auto Update		]]
-local sversion = "1.9"
+local sversion = "2.2"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlBlitzCrank.lua".."?rand="..math.random(1,10000)
@@ -101,7 +104,7 @@ local Target = nil
 function OnLoad()
     VP = VPrediction()
             -- Target Selector
-    ts = TargetSelector(TARGET_LESS_CAST, 1040)
+    ts = TargetSelector(TARGET_LESS_CAST, 1000)
 		IgniteSlot()
     NSOW = SOW(VP)
                    
@@ -134,14 +137,13 @@ function OnLoad()
 		Menu:addSubMenu("["..myHero.charName.." - Others]", "Others")
 		Menu.Others:addParam("Autolevel", "Auto Level", SCRIPT_PARAM_LIST, 1, {"Disable", "Q>E>R>W", "Q>W>R>E"})
 		
-		Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
 		
 		enemyMinion = minionManager(MINION_ENEMY, 1040, myHero, MINION_SORT_HEALTH_ASC)
 				
 		PrintChat("<font color = \"#33CCCC\">Free Blitzcrank "..sversion.." With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
-local qrange, qwidth, qspeed, qdelay = 1050, 120, 1800, .25	
+local qrange, qwidth, qspeed, qdelay = 1000, 70, 1800, 0.25	
 local rrange = 590
 local aarange = 200
 levelSequence = {
@@ -160,7 +162,7 @@ function OnTick()
         autoLevelSetSequence(levelSequence.QW)
     end
 		if Menu.UltiOption.KsR then BlitzKillSteal() end
-	  if Menu.activeCombo then activeCombo() end
+	  if Menu.OrbWalking.Mode0 then activeCombo() end
 end
 
 function activeCombo()

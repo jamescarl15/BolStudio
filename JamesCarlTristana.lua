@@ -9,11 +9,12 @@
 							v0.4 - Add UpdateRange E and Escape Key
 							v0.5 - Add Harass
 							v0.6 - Fix all known bugs
+							v0.7 - Hotkeys
 							]]--
         			
 		
 --[[		Auto Update		]]
-local sversion = "0.6"
+local sversion = "0.7"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlTristana.lua".."?rand="..math.random(1,10000)
@@ -139,8 +140,6 @@ function OnLoad()
 	Menu:addSubMenu("["..myHero.charName.." - Others]", "Others")
 		Menu.Others:addParam("Autolevel", "Auto Level", SCRIPT_PARAM_LIST, 1, {"Disable", "W>E>Q>R", "E>W>Q>R", "Q>W>E>R",})
 			
-	Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
-	Menu:addParam("activeHarass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("X"))
 	
 	PrintChat("<font color = \"#33CCCC\">Tristana "..sversion.." by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
@@ -169,8 +168,8 @@ function OnTick()
 				autoLevelSetSequence(levelSequence.QW)
     end
 		if Menu.Ulti.Ksr then KillSteal() end
-	  if Menu.activeCombo then activeCombo() end
-		if Menu.activeHarass then activeHarass() end
+	  if Menu.OrbWalking.Mode0 then activeCombo() end
+		if Menu.OrbWalking.Mode1 then activeHarass() end
 		if Menu.Esp.Esp then Escape() end
 end
 

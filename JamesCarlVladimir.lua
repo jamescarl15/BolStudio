@@ -2,11 +2,12 @@
  For more info. visit http://botoflegends.com/forum/topic/30053-sowfreevipusersfreescriptvladimir-by-jamescarl/
         Vladimir With SOW and VPredicton by JamesCarl
         			v0.1 - 	Initial Release
+        			v0.2 -  ^_^
 ]]--
 
 
 --Auto Update--
-local sversion = "0.1"
+local sversion = "0.2"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlVladimir.lua".."?rand="..math.random(1,10000)
@@ -77,9 +78,6 @@ local QREADY, WREADY, EREADY, RREADY, IREADY = false, false, false, false, false
 local DFGReady, HXGReady, BWCReady, BRKReady, HYDReady = false, false, false, false, false
 local DFGSlot, HXGSlot, BWCSlot, BRKSlot, HYDSlot = nil, nil, nil, nil, nil  
 local Target = nil
-local combo1 = 32
-local combo2 = string.byte("X")
-local combo4 = string.byte("C")
 local abilitySequence = {1,3,2,1,1,4,1,3,1,2,4,3,3,2,2,4,3,2}
 local qrange, erange, rrange = 600, 600, 700
 function OnLoad()
@@ -101,17 +99,14 @@ function OnLoad()
 		Menu.z:addParam("r", "Use R", SCRIPT_PARAM_ONOFF, true)
 		Menu.z:addParam("im", "Use Items", SCRIPT_PARAM_ONOFF, true)
 		Menu.z:addParam("ig", "Use Ignite if Killable", SCRIPT_PARAM_ONOFF, true)
-		Menu.z:addParam("activecombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, combo1)
 		
 		Menu.z:addParam("sep", "--Last Hit Settings--", SCRIPT_PARAM_INFO, "")
 		Menu.z:addParam("qf", "Use Q", SCRIPT_PARAM_ONOFF, true)
 		Menu.z:addParam("ef", "Use E", SCRIPT_PARAM_ONOFF, true)
-		Menu.z:addParam("farm", "Farm", SCRIPT_PARAM_ONKEYDOWN, false, combo4)
 		
 		Menu.z:addParam("sep", "--Harass Settings--", SCRIPT_PARAM_INFO, "")
 		Menu.z:addParam("qh", "Use Q", SCRIPT_PARAM_ONOFF, true)
 		Menu.z:addParam("eh", "Use E", SCRIPT_PARAM_ONOFF, true)
-		Menu.z:addParam("holdharass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, combo2)
 		
 		Menu.z:addParam("sep", "--Killsteal Settings--", SCRIPT_PARAM_INFO, "")
 		Menu.z:addParam("ksq", "Killsteal on Q", SCRIPT_PARAM_ONOFF, true)
@@ -145,9 +140,9 @@ function OnTick()
                 end
         end
 		Killsteal()
- if Menu.z.activecombo then activecombo() end
- if Menu.z.holdharass then holdharass() end
- if Menu.z.farm then farm() end
+ if Menu.z.OrbWalking.Mode0 then activecombo() end
+ if Menu.z.OrbWalking.Mode1 then holdharass() end
+ if Menu.z.OrbWalking.Mode3 then farm() end
 end
 
 function farm() --hold

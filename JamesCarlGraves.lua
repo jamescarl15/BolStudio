@@ -7,10 +7,11 @@
 							v0.2 - 	Add: Harass
 							v0.3 - 	Add: KillSteal
 				v0.4 - Fix all known bugs..
+				v0.5 - Same hotkeys for sow
 							]]--
 
 --Auto Update--
-local sversion = "0.4"
+local sversion = "0.5"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlGraves.lua".."?rand="..math.random(1,10000)
@@ -140,8 +141,6 @@ function OnLoad()
 	Menu:addSubMenu("["..myHero.charName.." - Others]", "Others")
 		Menu.Others:addParam("Autolevel", "Auto Level", SCRIPT_PARAM_LIST, 1, {"Disable", "Q>W>E>R", "E>Q>W>R"})
 		
-	Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
-	Menu:addParam("activeHarass", "Harass", SCRIPT_PARAM_ONKEYDOWN, false, string.byte("X"))
 
 	PrintChat("<font color = \"#33CCCC\">Graves "..sversion.." by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
@@ -156,8 +155,8 @@ function OnTick()
     autoLevelSetSequence(levelSequence.QE)
     elseif Menu.Others.Autolevel == 3 then
     autoLevelSetSequence(levelSequence.EQ) end	
-		if Menu.activeCombo then activeCombo() end
-		if Menu.activeHarass then activeHarass() end
+		if Menu.OrbWalking.Mode0 then activeCombo() end
+		if Menu.OrbWalking.Mode1 then activeHarass() end
 end
 
 function KillSteal()

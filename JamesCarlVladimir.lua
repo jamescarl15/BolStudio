@@ -3,11 +3,12 @@
         Vladimir With SOW and VPredicton by JamesCarl
         			v0.1 - 	Initial Release
         			v0.2 -  ^_^
+        			v0.3 - 	Fixbugs
 ]]--
 
 
 --Auto Update--
-local sversion = "0.2"
+local sversion = "0.3"
 local AUTOUPDATE = true --You can set this false if you don't want to autoupdate --
 local UPDATE_HOST = "raw.github.com"
 local UPDATE_PATH = "/jamescarl15/BolStudio/master/JamesCarlVladimir.lua".."?rand="..math.random(1,10000)
@@ -140,9 +141,9 @@ function OnTick()
                 end
         end
 		Killsteal()
- if Menu.z.OrbWalking.Mode0 then activecombo() end
- if Menu.z.OrbWalking.Mode1 then holdharass() end
- if Menu.z.OrbWalking.Mode3 then farm() end
+ if Menu.OrbWalking.Mode0 then activecombo() end
+ if Menu.OrbWalking.Mode1 then holdharass() end
+ if Menu.OrbWalking.Mode3 then farm() end
 end
 
 function farm() --hold

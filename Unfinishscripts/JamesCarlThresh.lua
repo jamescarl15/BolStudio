@@ -1,7 +1,71 @@
 if myHero.charName ~= "Thresh" then return end
      
 require 'VPrediction'
+require 'HPrediction'
 require 'SOW'
+
+if VIP_USER and FileExist(LIB_PATH .. "/DivinePred.lua") then 
+	require "DivinePred" 
+	dp = DivinePred()
+	qpred = LineSS(1200, 1000, 80, 0.5, 0)
+end
+--Credits to Zopper
+Interrupt = {
+	["Katarina"] = {charName = "Katarina", stop = {["KatarinaR"] = {name = "Death lotus", spellName = "KatarinaR", ult = true }}},
+	["Nunu"] = {charName = "Nunu", stop = {["AbsoluteZero"] = {name = "Absolute Zero", spellName = "AbsoluteZero", ult = true }}},
+	["Malzahar"] = {charName = "Malzahar", stop = {["AlZaharNetherGrasp"] = {name = "Nether Grasp", spellName = "AlZaharNetherGrasp", ult = true}}},
+	["Caitlyn"] = {charName = "Caitlyn", stop = {["CaitlynAceintheHole"] = {name = "Ace in the hole", spellName = "CaitlynAceintheHole", ult = true, projectileName = "caitlyn_ult_mis.troy"}}},
+	["FiddleSticks"] = {charName = "FiddleSticks", stop = {["Crowstorm"] = {name = "Crowstorm", spellName = "Crowstorm", ult = true}}},
+	["Galio"] = {charName = "Galio", stop = {["GalioIdolOfDurand"] = {name = "Idole of Durand", spellName = "GalioIdolOfDurand", ult = true}}},
+	["Janna"] = {charName = "Janna", stop = {["ReapTheWhirlwind"] = {name = "Monsoon", spellName = "ReapTheWhirlwind", ult = true}}},
+	["MissFortune"] = {charName = "MissFortune", stop = {["MissFortune"] = {name = "Bullet time", spellName = "MissFortuneBulletTime", ult = true}}},
+	["MasterYi"] = {charName = "MasterYi", stop = {["MasterYi"] = {name = "Meditate", spellName = "Meditate", ult = false}}},
+	["Pantheon"] = {charName = "Pantheon", stop = {["PantheonRJump"] = {name = "Skyfall", spellName = "PantheonRJump", ult = true}}},
+	["Shen"] = {charName = "Shen", stop = {["ShenStandUnited"] = {name = "Stand united", spellName = "ShenStandUnited", ult = true}}},
+	["Urgot"] = {charName = "Urgot", stop = {["UrgotSwap2"] = {name = "Position Reverser", spellName = "UrgotSwap2", ult = true}}},
+	["Varus"] = {charName = "Varus", stop = {["VarusQ"] = {name = "Piercing Arrow", spellName = "Varus", ult = false}}},
+	["Warwick"] = {charName = "Warwick", stop = {["InfiniteDuress"] = {name = "Infinite Duress", spellName = "InfiniteDuress", ult = true}}},
+}
+AntiGapcloserUnit = {
+	['Ahri']        = {true, spell = _R, 		      range = 450,   projSpeed = 2200, },
+	['Aatrox']      = {true, spell = _Q,                  range = 1000,  projSpeed = 1200, },
+	['Akali']       = {true, spell = _R,                  range = 800,   projSpeed = 2200, },
+	['Alistar']     = {true, spell = _W,                  range = 650,   projSpeed = 2000, },
+	['Amumu']       = {true, spell = _Q,                  range = 1100,  projSpeed = 1800, },
+	['Corki']       = {true, spell = _W,                  range = 800,   projSpeed = 650,  },
+	['Diana']       = {true, spell = _R,                  range = 825,   projSpeed = 2000, },
+	['Darius']      = {true, spell = _R,                  range = 460,   projSpeed = math.huge, },
+	['Fiora']       = {true, spell = _Q,                  range = 600,   projSpeed = 2000, },
+	['Fizz']        = {true, spell = _Q,                  range = 550,   projSpeed = 2000, },
+	['Gragas']      = {true, spell = _E,                  range = 600,   projSpeed = 2000, },
+	['Graves']      = {true, spell = _E,                  range = 425,   projSpeed = 2000, exeption = true },
+	['Hecarim']     = {true, spell = _R,                  range = 1000,  projSpeed = 1200, },
+	['Irelia']      = {true, spell = _Q,                  range = 650,   projSpeed = 2200, },
+	['JarvanIV']    = {true, spell = _Q,                  range = 770,   projSpeed = 2000, },
+	['Jax']         = {true, spell = _Q,                  range = 700,   projSpeed = 2000, },
+	['Jayce']       = {true, spell = 'JayceToTheSkies',   range = 600,   projSpeed = 2000, },
+	['Khazix']      = {true, spell = _E,                  range = 900,   projSpeed = 2000, },
+	['Leblanc']     = {true, spell = _W,                  range = 600,   projSpeed = 2000, },
+	['LeeSin']      = {true, spell = 'blindmonkqtwo',     range = 1300,  projSpeed = 1800, },
+	['Leona']       = {true, spell = _E,                  range = 900,   projSpeed = 2000, },
+	['Lucian']      = {true, spell = _E,                  range = 425,   projSpeed = 2000, },
+	['Malphite']    = {true, spell = _R,                  range = 1000,  projSpeed = 1500, },
+	['Maokai']      = {true, spell = _W,                  range = 525,   projSpeed = 2000, },
+	['MonkeyKing']  = {true, spell = _E,                  range = 650,   projSpeed = 2200, },
+	['Pantheon']    = {true, spell = _W,                  range = 600,   projSpeed = 2000, },
+	['Poppy']       = {true, spell = _E,                  range = 525,   projSpeed = 2000, },
+	['Riven']       = {true, spell = _E,                  range = 150,   projSpeed = 2000, },
+	['Renekton']    = {true, spell = _E,                  range = 450,   projSpeed = 2000, },
+	['Sejuani']     = {true, spell = _Q,                  range = 650,   projSpeed = 2000, },
+	['Shen']        = {true, spell = _E,                  range = 575,   projSpeed = 2000, },
+	['Shyvana']     = {true, spell = _R,                  range = 1000,  projSpeed = 2000, },
+	['Tristana']    = {true, spell = _W,                  range = 900,   projSpeed = 2000, },
+	['Tryndamere']  = {true, spell = 'Slash',             range = 650,   projSpeed = 1450, },
+	['XinZhao']     = {true, spell = _E,                  range = 650,   projSpeed = 2000, },
+	['Yasuo']       = {true, spell = _E,                  range = 475,   projSpeed = 1000, },
+	['Vayne']       = {true, spell = _Q,                  range = 300,   projSpeed = 1000, },
+}
+
 
 local ts
 local Recall = false
@@ -10,6 +74,10 @@ local QREADY, WREADY, EREADY, RREADY, IREADY = false, false, false, false, false
 local DFGReady, HXGReady, BWCReady, BRKReady, HYDReady = false, false, false, false, false
 local DFGSlot, HXGSlot, BWCSlot, BRKSlot, HYDSlot = nil, nil, nil, nil, nil  
 local Target = nil
+informationTable = {}
+loaded = false
+pred = nil
+qLast = 0
 
 function OnLoad()
     VP = VPrediction()
@@ -25,18 +93,47 @@ function OnLoad()
     Menu:addSubMenu("["..myHero.charName.." - OrbWalking]", "OrbWalking")
     NSOW:LoadToMenu(Menu.OrbWalking)
 		
-		Menu:addSubMenu("["..myHero.charName.." - Combo Settings]", "Combo")
-		Menu.Combo:addParam("sep", "---Settings in Combo---", SCRIPT_PARAM_INFO, "")
+Menu:addSubMenu("["..myHero.charName.." - Combo Settings]", "Combo")
+    Menu.Combo:addParam("sep", "---Settings in Combo---", SCRIPT_PARAM_INFO, "")
     Menu.Combo:addParam("useQ", "Use Q in combo", SCRIPT_PARAM_ONOFF, true)
-	Menu:addSubMenu("["..myHero.charName.." - Combo Settings]", "Ulti")
-	Menu.Ulti:addParam("Silence", "Silence", SCRIPT_PARAM_ONOFF, true)
+    Menu.Combo:addParam("useQ2", "Use Q2 in Combo", SCRIPT_PARAM_ONOFF, true)
+    Menu.Combo:addParam("useW", "Use W in Combo", SCRIPT_PARAM_ONOFF, true)
+    Menu.Combo:addParam("useE", "Use E in Combo", SCRIPT_PARAM_ONOFF, true)
+    Menu.Combo:addParam("emode", "Use E mode", SCRIPT_PARAM_LIST, 1, {"Pull", "Push"})
+    Menu.Combo:addParam("useR", "Use R in combo", SCRIPT_PARAM_ONOFF, true)
+    Menu.Combo:addParam("rcount", "Use R if enemies inside:", SCRIPT_PARAM_SLICE, 2, 1, 5, 0)
+Menu:addSubMenu("["..myHero.charName.." - Prediction]", "Predict") 
+    Menu.Predict:addParam("pred", "Prediction Type", SCRIPT_PARAM_LIST, 1, {"VPrediction", "DivinePred", "HPred"})
+Menu:addSubMenu("["..myHero.charName.." - Interrupt]", "Inter")
+		for i, a in pairs(GetEnemyHeroes()) do
+			if Interrupt[a.charName] ~= nil then
+				for i, spell in pairs(Interrupt[a.charName].stop) do
+					Menu.Inter:addParam(spell.spellName, a.charName.." - "..spell.name, SCRIPT_PARAM_ONOFF, true)
+				end
+			end
+		end
+Menu:addSubMenu("["..myHero.charName.." - Anti Gap Close]", "Gap")
+    	for _, enemy in pairs(GetEnemyHeroes()) do
+			if AntiGapCloserUnit[enemy.charName] ~= nil then
+			Menu.Gap:addParam(enemy.charName, enemy.charName .. " - " .. enemy:GetSpellData(AntiGapCloserUnit[enemy.charName].spell).name, SCRIPT_PARAM_ONOFF, true)
+			end
+		end
+Menu:addSubMenu("["..myHero.charName.." - Drawings]", "Draw")
+    Menu.Draw:addParam("drawings", "Disable all Drawings", SCRIPT_PARAM_ONOFF, false)
+    Menu.Draw:addParam("drawq", "Draw Q", SCRIPT_PARAM_ONOFF, true)
+    Menu.Draw:addParam("draww", "Draw W", SCRIPT_PARAM_ONOFF, true)
+    Menu.Draw:addParam("drawe", "Draw E", SCRIPT_PARAM_ONOFF, true)
+    Menu.Draw:addParam("drawr", "Draw R", SCRIPT_PARAM_ONOFF, true)
+   
 		enemyMinion = minionManager(MINION_ENEMY, 1000, myHero, MINION_SORT_HEALTH_ASC)
 		Menu:addParam("activeCombo", "Combo", SCRIPT_PARAM_ONKEYDOWN, false, 32)
-		PrintChat("<font color = \"#33CCCC\">Thresh With VPrediction by</font> <font color = \"#fff8e7\">JamesCarl</font>")
+		PrintChat("<font color = \"#33CCCC\">Thresh by</font> <font color = \"#fff8e7\">JamesCarl</font>")
 end
 
-local qrange, qwidth, qspeed, qdelay = 1075, 50, 2000, 491
-local erange = 250
+local qrange, qwidth, qspeed, qdelay = 1000, 80, 1200, 0.5
+local wrange, wwidth, wspeed, wdelay = 950, 315, math.huge, 0.5
+local erange, ewidth, espeed, edelay = 515, 160, math.huge, 0.3
+local rrange, rwidth, rspeed, rdelay = 420, 420, math.huge, 0.3
 
 function OnTick()
     if myHero.dead then return end
@@ -44,6 +141,7 @@ function OnTick()
     NSOW:ForceTarget(Target)
     Checks()
 		if Menu.activeCombo then activeCombo() end
+
 end
 		
 
@@ -52,24 +150,28 @@ function activeCombo()
 	if Menu.Combo.useQ then UseQ() end
 end
 
-function OnProcessSpell(unit, spell)
-        if Menu.Ulti.Silence and unit ~= nil and unit.valid and unit.team == TEAM_ENEMY and CanUseSpell(_E) == READY and GetDistance(unit) <= erange then
-                if spell.name=="KatarinaR" or spell.name=="GalioIdolOfDurand" or spell.name=="Crowstorm" or spell.name=="DrainChannel"
-                or spell.name=="AbsoluteZero" or spell.name=="ShenStandUnited" or spell.name=="UrgotSwap2" or spell.name=="AlZaharNetherGrasp"
-                or spell.name=="FallenOne" or spell.name=="Pantheon_GrandSkyfall_Jump" or spell.name=="CaitlynAceintheHole"
-                or spell.name=="MissFortuneBulletTime" or spell.name=="InfiniteDuress" or spell.name=="Teleport" or spell.name=="Meditate" then
-                        CastSpell(_E, ts.target)
-end
-end
-end
-
 function UseQ()
- 	if ts.target ~= nil and ValidTarget(ts.target, qrange) and Menu.Combo.useQ then
-		local CastPosition,  HitChance,  Position = VP:GetLineCastPosition(ts.target, qdelay, qwidth, qrange, qspeed, myHero, true)
-		if HitChance >= 2  and GetDistance(ts.target) <= qrange and myHero:CanUseSpell(_Q) == READY then 
-			CastSpell(_Q, CastPosition.x, CastPosition.z)
+	if ValidTarget(unit) and GetDistance(unit) <= qrange and myHero:GetSpellData(_Q).name ~= "threshqleap" then
+			if settings.pred == 1 then
+				local castPos, chance, pos = pred:GetLineCastPosition(unit, qdelay, qwidth, qrange, qspeed, myHero, true)
+				if  QREADY and chance >= 2 then
+					CastSpell(_Q, castPos.x, castPos.z)
+				end
+			elseif settings.pred == 2 and VIP_USER and os.clock() - qLast > 0.2 then
+				qLast = os.clock()
+				local targ = DPTarget(unit)
+				local state,hitPos,perc = dp:predict(targ, qpred)
+				if QREADY and state == SkillShot.STATUS.SUCCESS_HIT then
+					CastSpell(_Q, hitPos.x, hitPos.z)
+				end
+			elseif settings.pred == 3 then
+				local pos, chance = HPred:GetPredict("Q", unit, myHero) 
+				if chance > 0 and spells.q.ready then
+					CastSpell(_Q, pos.x, pos.z)
+				end
+			end
 		end
-end
+	end
 end
 
 function Checks()	
